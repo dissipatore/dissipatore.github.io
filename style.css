@@ -1,0 +1,38 @@
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    text-align: center;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    padding: 8px;
+    background-color: #333;
+    color: #ffffff;
+    border: none;
+    margin-top: 10px;
+}
+
+button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#generatedUrl {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#contentUrl {
+    color: #4CAF50;
+    text-decoration: underline;
+    cursor: pointer;
+}
