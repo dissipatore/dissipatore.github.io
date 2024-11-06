@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>knowunity downloader</title>
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            text-align: center;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            padding: 8px;
+            background-color: #333;
+            color: #ffffff;
+            border: none;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #generatedUrl {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        #contentUrl {
+            color: #4CAF50;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        #Footer {
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+</head>
+<body>
+    <label for="knowunity_url">Link knowunity:</label>
+    <input type="text" id="knowunity_url" placeholder="inserisci il link qui">
+
+    <button onclick="generateUrl()">Download</button>
+
+    <div id="generatedUrl"></div>
+
+    <script>
+        function generateUrl() {
+            var knowunityUrlInput = document.getElementById('knowunity_url').value;
+
+            var match = knowunityUrlInput.match(/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/);
+            var extractedId = match ? match[0] : null;
+
+            if (extractedId) {
+                var apiUrl = 'https://apiedge-eu-central-1.knowunity.com/knows/' + extractedId;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(jsonResponse => {
+                        var contentUrl = jsonResponse.documents[0].contentUrl;
+
+                        var generatedUrlDiv = document.getElementById('generatedUrl');
+                        generatedUrlDiv.innerHTML = 'Content URL: <span id="contentUrl" onclick="openContentUrl(\'' + contentUrl + '\')">' + contentUrl + '</span>';
+                    })
+                    .catch(error => {
+                        console.error('Errore (fetching):', error);
+                        alert('Errore');
+                    });
+            } else {
+                alert('Link non valido');
+            }
+        }
+
+        function openContentUrl(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+    </div>
+</body>
+</html>
