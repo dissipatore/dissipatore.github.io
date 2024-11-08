@@ -12,7 +12,7 @@ function generateUrl() {
             .then(jsonResponse => {
                 const contentUrl = jsonResponse.documents[0].contentUrl;
                 const generatedUrlDiv = document.getElementById('generatedUrl');
-                generatedUrlDiv.innerHTML = 'Content URL: <span id="contentUrl" onclick="openContentUrl(\'' + contentUrl + '\')">' + contentUrl + '</span>';
+                generatedUrlDiv.innerHTML = 'File: <span id="contentUrl" onclick="openContentUrl(\'' + contentUrl + '\')">' + contentUrl + '</span>';
             })
             .catch(error => {
                 console.error('Errore (fetching):', error);
